@@ -4,23 +4,16 @@ sudo: false
 services:
   - docker
 
-#addons:
-#  apt:
-#    sources:
-#    packages:
-
 #env:
 #  global:
-
-#before_install:
-
-#before_script:
 
 script:
   - make build
   - docker images
-  - make test
+  - make binary
+  - make cross
   - make tgz
+  - make manpages
 
 after_script:
   - pwd
