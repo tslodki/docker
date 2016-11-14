@@ -4,22 +4,30 @@ sudo: false # ony needed to run tests
 services:
   - docker
 
+matrix:
+  fast_finish: true
+
+before_script:
+  - set -e
+
 script:
   - make tgz
   - make manpages
 
 after_script:
-  - ls -laR bundles
+  - ls -laR bundles || true
+  - ls -laR man || true
 
 before_deploy:
-  - tar --numeric-owner --owner 0 -C "bundles/latest" -czf "bundles/latest/tgz/linux/386/docker-dynbinary-1.12.3.tgz" dynbinary-client dynbinary-daemon
+  - cp bundles/latest/tgz/linux/386/docker-1.12.3.tgz "./docker-binary-linux-386-${TRAVIS_TAG}.tgz"
+  - tar --numeric-owner --owner 0 -C "bundles/latest" -czf "docker-dynbinary-linux-386-${TRAVIS_TAG}.tgz" dynbinary-client dynbinary-daemon
 
 deploy:
   provider: releases
   api_key: "71db25a036d4dc6de53bacaed5c4d0d758936d95"
   file:
-    - "bundles/latest/tgz/linux/386/docker-1.12.3.tgz"
-    - "bundles/latest/tgz/linux/386/docker-dynbinary-1.12.3.tgz"
+    - "docker-binary-linux-386-${TRAVIS_TAG}.tgz"
+    - "docker-dynbinary-linux-386-${TRAVIS_TAG}.tgz"
   skip_cleanup: true
 #  overwrite: true
   on:
