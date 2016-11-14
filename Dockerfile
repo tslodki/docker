@@ -23,7 +23,7 @@
 # the case. Therefore, you don't have to disable it anymore.
 #
 
-FROM debian:jessie
+FROM 32bit/debian:jessie
 
 # add zfs ppa
 RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys E871F18B51E0147C77796AC81196BA81F6B0FC61 \
@@ -129,7 +129,7 @@ ENV DOCKER_CROSSPLATFORMS \
 	freebsd/amd64 freebsd/386 freebsd/arm \
 	windows/amd64 windows/386
 
-RUN curl -fsSL "https://storage.googleapis.com/golang/go1.4.3.linux-amd64.tar.gz" \
+RUN curl -fsSL "https://storage.googleapis.com/golang/go1.4.3.linux-386.tar.gz" \
 	| tar -xzC /root && \
 	mv /root/go /root/go1.4 && \
 	cd /usr/local && \

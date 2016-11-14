@@ -1,0 +1,25 @@
+language: go
+sudo: false
+
+services:
+  - docker
+
+#addons:
+#  apt:
+#    sources:
+#    packages:
+
+#env:
+#  global:
+
+#before_install:
+
+#before_script:
+
+script:
+  - make build
+  - docker images -a
+  - make binary
+
+after_script:
+- ls -laR bundles/latest/binary
