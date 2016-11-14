@@ -19,7 +19,10 @@ services:
 script:
   - make build
   - docker images
-  - make binary
+  - make test
+  - make tgz
 
 after_script:
-- ls -laR bundles/latest/binary
+  - pwd
+  - ls -la
+  - ls -laR bundles
