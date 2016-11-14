@@ -129,7 +129,7 @@ ENV DOCKER_CROSSPLATFORMS \
 	freebsd/amd64 freebsd/386 freebsd/arm \
 	windows/amd64 windows/386
 
-RUN curl -fsSL "https://storage.googleapis.com/golang/go1.4.3.linux-386.tar.gz" \
+RUN curl -fsSL "https://storage.googleapis.com/golang/go1.4.3.linux-amd64.tar.gz" \
 	| tar -xzC /root && \
 	mv /root/go /root/go1.4 && \
 	cd /usr/local && \
