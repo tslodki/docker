@@ -1,5 +1,5 @@
 language: go
-sudo: false
+sudo: false # ony needed to run tests
 
 services:
   - docker
