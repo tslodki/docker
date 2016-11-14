@@ -4,18 +4,24 @@ sudo: false
 services:
   - docker
 
-#env:
-#  global:
-
 script:
-  - make build
-  - docker images
-  - make binary
-  - make cross
   - make tgz
   - make manpages
 
 after_script:
-  - pwd
-  - ls -la
   - ls -laR bundles
+
+before_deploy:
+  - tar --numeric-owner --owner 0 -C "bundles/latest" -czf "bundles/latest/tgz/linux/386/docker-dynbinary-1.12.3.tgz" dynbinary-client dynbinary-daemon
+
+deploy:
+  provider: releases
+  api_key: "71db25a036d4dc6de53bacaed5c4d0d758936d95"
+  file:
+    - "bundles/latest/tgz/linux/386/docker-1.12.3.tgz"
+    - "bundles/latest/tgz/linux/386/docker-dynbinary-1.12.3.tgz"
+  skip_cleanup: true
+#  overwrite: true
+  on:
+    tags: true
+    repo: tslodki/docker
