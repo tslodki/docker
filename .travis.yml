@@ -24,7 +24,7 @@ before_deploy:
 
 deploy:
   provider: releases
-  api_key: "a5c98cc5aad9621d3bc7911c62acb795c9548aff"
+  api_key: "e9e4700f6af44c3f0faf6198bdbf2b57b09c614f"
   file:
     - "docker-binary-linux-386-${TRAVIS_TAG}.tgz"
     - "docker-dynbinary-linux-386-${TRAVIS_TAG}.tgz"
