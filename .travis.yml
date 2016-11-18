@@ -1,0 +1,36 @@
+language: go
+sudo: false # ony needed to run tests
+
+services:
+  - docker
+
+matrix:
+  fast_finish: true
+
+before_script:
+  - set -e
+
+script:
+  - make dynbinary
+#  - make manpages
+
+after_script:
+  - ls -laR bundles || true
+  - ls -laR man || true
+
+before_deploy:
+#  - cp bundles/latest/tgz/linux/386/docker-1.12.3.tgz "./docker-binary-linux-386-${TRAVIS_TAG}.tgz"
+#  - tar --numeric-owner --owner 0 -C "bundles/latest" -czf "docker-dynbinary-linux-386-${TRAVIS_TAG}.tgz" dynbinary-client dynbinary-daemon
+
+deploy:
+  provider: releases
+  api_key:
+    secure: "uBlsuULizLkSzsPM1AgYoZ6d6b/Xx1hHfs1GVovwMZUZl80B72rbVYZ7nLDAWuQ/+KtI/Bx/4G8rXezshT3krKnPI2XeoNRAWbgN0JcrlPBh5qjkL741rUX3kCdutrKmmVVqxM/5kzadiY1ewj7lUwgVYH2Ed7BNR76GvXEwUqhaO7kLDZV443+UJUwRqb6rex2Y3mDfWXWq1jdd2+pYMJbgWfYsavvlLovNAxzk/MsOdL4lyVJbX/j5Vct/Vsa4ePAGC/ZlvmSqkdfbo3KyT67Ipb3F1KvOMUZtfJR5oDIUhers+6r1eVu4ru6PIe4LqOAODSph0tsuoVTabfHq5VzTYvYfC9HHyGrQ88sBizzlBSHcLABZROK246SaZXtLfS2+tsZtflSlX4jcCx0WHvx9VpXvAt/2a8vsTJMhRR/09Xp5kSq93rnQAF0u9PxXGFdrIJq8P65F/r8HKAOUdcXy7LMY9PFXnUniE6QUzz1HohWzQEhkJbRlDWuQnncHjDztIPj94L7aTDnKl918zn2CNWfA3zXI3mpjAhLYqIsOzCi0OBF7rlXuj46ZriFVMNE1wdWtWkfc/JvBH6ppjDPpGO3bjGD7pQg5+DCLXdaIduN2ImqGl7ha5nz2rG5vc1Qdy9NeA2CksEjDJDtHtsogDEuiKospRy+wGykXDdg="
+  file:
+    - "docker-binary-linux-386-${TRAVIS_TAG}.tgz"
+    - "docker-dynbinary-linux-386-${TRAVIS_TAG}.tgz"
+  skip_cleanup: true
+#  overwrite: true
+  on:
+    tags: true
+repo: tslodki/docker
