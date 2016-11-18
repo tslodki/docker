@@ -11,12 +11,12 @@ before_script:
   - set -e
 
 script:
-  - make dynbinary
-#  - make manpages
+  - make deb
+  - make manpages
 
 after_script:
   - ls -laR bundles || true
-  - ls -laR man || true
+  - ls -laR . || true
 
 before_deploy:
 #  - cp bundles/latest/tgz/linux/386/docker-1.12.3.tgz "./docker-binary-linux-386-${TRAVIS_TAG}.tgz"
