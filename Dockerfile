@@ -157,7 +157,7 @@ ENV CRIU_VERSION 2.2
 RUN mkdir -p /usr/src/criu \
 	&& curl -sSL https://github.com/xemul/criu/archive/v${CRIU_VERSION}.tar.gz | tar -v -C /usr/src/criu/ -xz --strip-components=1 \
 	&& cd /usr/src/criu \
-	&& make \
+	&& ARCH=i386 CROSS_COMPILE=i486-linux-gnu- CFLAGS=`pkg-config --cflags libprotobuf-c` LDFLAGS="`pkg-config --libs libprotobuf-c`" make \
 	&& make install-criu
 
 # Install two versions of the registry. The first is an older version that
